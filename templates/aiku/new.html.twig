@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AikuController!{% endblock %}
+
+{% block body %}
+    {{ form_start(form, {'attr': {'class': 'field'}}) }}
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(form) }}
+    </div>
+
+    <div class="columns">
+        <div class="column">
+            <div class="field">
+                {{ form_label(form.promptNative) }}
+                {{ form_widget(form.promptNative) }}
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                {{ form_label(form.prompt) }}
+                {{ form_widget(form.prompt) }}
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        {{ form_label(form.author) }}
+        {{ form_widget(form.author) }}
+    </div>
+    <div class="field">
+        {{ form_label(form.locale) }}
+        <div class="control">
+            <div class="select">
+                {{ form_widget(form.locale) }}
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        {{ form_label(form.parameters) }}
+        {{ form_widget(form.parameters) }}
+    </div>
+    <div class="file has-name">
+        <label class="file-label">
+            <input class="file-input" type="file" name="resume">
+        </label>
+    </div>
+    {{ form_label(form.imageFile) }}
+    {{ form_widget(form.imageFile) }}
+    <label class="checkbox mt-4 mb-4">
+        {{ form_widget(form.isPublished) }} {{ form.isPublished.vars.name }}
+    </label>
+    {{ form_end(form) }}
+{% endblock %}

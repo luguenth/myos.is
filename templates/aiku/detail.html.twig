@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AikuController!{% endblock %}
+
+{% block body %}
+    {% if aiku.isPublished or is_granted('ROLE_ADMIN')%}
+
+    {% if not aiku.isPublished %}
+        <div class="notification is-warning">
+            This Aiku is not published. <strong><a href="{{ path('aiku_edit', {id: aiku.id}) }}">edit</a></strong> the Aiku to publish it
+        </div>
+        {% endif %}
+    <div class="columns is-centered">
+        <div class="column is-one-third">
+        <code>
+            prompts = <br><mark>'{{ aiku.promptNative |nl2br}}'</mark><br>
+            author = <mark>'{{aiku.author.name}}'</mark><br>
+            width =  512 <br>
+            height =  512<br>
+            model = "vqgan_imagenet_f16_16384" <br>
+            initial_image = "/content/new Pictures 045.jpg"<br>
+            target_images = ""<br>
+            seed = -1<br>
+            max_iterations = 10000<br>
+            input_images = "" <br>
+
+        </code>
+        </div>
+        <div class="column is-one-third">
+            <img src="{{ aiku.imagePath }}" width="512px">
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

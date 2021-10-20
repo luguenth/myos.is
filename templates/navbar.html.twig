@@ -1,0 +1,41 @@
+{% block content %}
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="{{ path('index') }}">myos.is</a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <div class="navbar-item">
+                            <div class="navbar-item has-dropdown is-hoverable">
+                                    <a class="navbar-link">
+                                        Add...
+                                    </a>
+
+                                    <div class="navbar-dropdown">
+                                        <a href="{{ path('aiku_new') }}" class="navbar-item is-primary">Aiku</a>
+                                        <a href="{{ path('author_new') }}" class="navbar-item is-primary">Author</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="navbar-item">
+                                <div class="buttons">
+                                    {% if aiku is defined %}
+                                        <a href="{{ path('aiku_edit', {id: aiku.id}) }}"
+                                           class="button is-warning">edit</a>
+                                    {% endif %}
+                                    <a href="{{ path('app_logout') }}" class="button is-danger">logout</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+{% endblock %}

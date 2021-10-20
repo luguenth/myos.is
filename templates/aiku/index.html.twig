@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AikuController!{% endblock %}
+
+{% block body %}
+    <div class="columns is-multiline is-centered">
+        {% for aiku in all_aikus %}
+            {% if aiku.isPublished or is_granted('ROLE_ADMIN') %}
+                <div class="column is-narrow">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-image">
+                            <figure class="image is-1by1">
+                                <img src="{{ aiku.imagePath }}" alt="...">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4">{{ aiku.author.name }}</p>
+                                    <p class="subtitle is-6">@{{ aiku.author.userIdentifier }}</p>
+                                </div>
+                            </div>
+
+                            <div class="content">
+                                {% if not aiku.isPublished %}
+                                    <span class="tag is-warning">Not Published</span><br><br>
+                                {% endif %}
+                                {{ aiku.promptNative }}<br>
+                                <br>
+                                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                            </div>
+                            <footer class="card-footer">
+                                <a href="{{ path('aiku_detail', {id: aiku.id}) }}" class="card-footer-item button">Go somewhere</a>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
