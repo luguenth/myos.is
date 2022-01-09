@@ -78,6 +78,32 @@ class AikuController extends AbstractController
         return $this->renderForm('aiku/new.html.twig', ['form' => $form]);
     }
 
+    public function like($id, AikuRepository $aikuRepository)
+    {
+        $aiku = $aikuRepository->find($id);
+        $aiku->setLikes($aiku->getLikes() + 1);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($aiku);
+        $em->flush();
+        return $this->redirectToRoute('aiku_detail', ['id' => $id]);
+    }
+
+    /**
+     * @param $id
+     * @param AikuRepository $aikuRepository
+     * @return Response
+     *
+     * @Route("/aiku/{id}/delete", name="aiku_delete")
+     */
+    public function delete($id, AikuRepository $aikuRepository): Response
+    {
+        $aiku = $aikuRepository->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($aiku);
+        $em->flush();
+        return $this->redirectToRoute('index');
+    }
+
     private function formHandling($form, $request): void
     {
         $form->handleRequest($request);
